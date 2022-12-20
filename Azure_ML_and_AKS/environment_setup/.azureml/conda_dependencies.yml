@@ -1,0 +1,25 @@
+name: titanic_prediction_environment
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pip>=19.1.1
+  - numpy>=1.13.3
+  - pandas==0.25.1
+  - pip:
+      - azureml-sdk==1.17.0
+      - black>=18.6b4
+      - cached-property==1.5.1
+      - jsonlines>=1.2.0
+      - nteract-scrapbook>=0.2.1
+      - pydocumentdb>=2.3.3
+      - tqdm==4.32.2
+      - pyemd==0.5.1
+      - ipywebrtc==0.4.3
+      - pre-commit>=1.14.4
+      - scikit-learn==0.22.1
+      - requests==2.22.0
+      - requests-oauthlib==1.2.0
+      - regex==2020.2.20
+      - joblib
