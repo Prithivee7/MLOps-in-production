@@ -1,0 +1,21 @@
+az account set --subscription <your_subscription_name>
+az configure --defaults workspace=<your_workspace_name> group = <your_resource_group_name>
+
+export ENDPOINT_NAME = "my-endpoint"
+
+git clone https://github.com/Azure/azureml-examples
+cd azureml-examples/cli
+
+az ml online-deployment show --name blue --endpoint $ENDPOINT_NAME
+
+az ml online-deployment create --name green --endpoint $ENDPOINT_NAME -f endpoints/online/managed/sample/green-deployment.yml
+
+az ml online-endpoint show -n $ENDPOINT_NAME --query traffic
+
+az ml online-endpoint invoke --name $ENDPOINT_NAME --deployment green --request-file endpoints/online/model-2/sample-request.json
+
+az ml online-endpoint update --name $ENDPOINT_NAME --traffic "blue=90 green=10" 
+
+az ml online-endpoint update --name $ENDPOINT_NAME --traffic "blue=0 green=100"
+
+az ml online-deployment delete --name blue --endpoint $ENDPOINT_NAME --yes --no-wait
