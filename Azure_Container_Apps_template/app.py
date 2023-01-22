@@ -3,15 +3,11 @@ import os
 
 app = Flask(__name__)
 
-if not os.path.exists("docker_bind"):
-    os.makedir("docker_bind")
-
 @app.route("/create_file",methods=["POST"])
 def run():
     data = request.get_json()
     file_name, content =  data['file_name'], data['content']
-    file_path = f"docker_bind/{file_name}"
-    with open(file_path,'w') as write_file:
+    with open(file_name,'w') as write_file:
         write_file.write(content)
     return {"Status":"Success"}
 
