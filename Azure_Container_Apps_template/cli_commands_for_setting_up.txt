@@ -1,0 +1,29 @@
+Set Azure Subscription
+	az account set --subscription <your_subscription_name>
+
+Create a Resource Group
+	az group create --name <your_resource_group_name>  --location eastus
+	
+Create a Container Registry (ACR)
+	az acr create --name <your_acr_name>
+              --resource-group <your_resource_group_name>
+              --sku Basic --admin-enabled
+
+Create a service principal
+	az ad sp create-for-rbac --name <your_service_principal_name>
+                         --role contributor
+                         --scopes /subscriptions/<your_subscription_id>/resourceGroup/<your_resource_group_name>
+
+
+Build and Push Image to ACR
+	# Login to Azure Container Registry
+	az login
+	az acr login --name <your_acr_name>
+
+	az acr build -t <your_repository_name>/<your_image_name>:latest -r <your_acr_name> .
+
+
+Create a Container Apps Environment
+	az containerapp env create -n <your_container_apps_environment_name> 
+							   -g <your_resource_group_name>
+							   --location eastus2

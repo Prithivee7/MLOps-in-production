@@ -1,0 +1,25 @@
+Install container app extension
+	az config set extension.use_dynamic_install=yes_without_prompt
+
+Delete container apps if it exists
+	az containerapp delete -g $RESOURCE_GROUP
+                       -n $CONTAINER_APP_NAME
+                       --yes
+
+Sleep for 2 minutes
+	sleep 120
+
+Deploy application in container apps
+	az containerapp create -n $CONTAINER_APP_NAME
+                       -g $RESOURCE_GROUP
+                       --image $ACR_IMAGE_NAME
+                       --environment $CONTAINER_APP_ENVIRONMENT
+                       --ingress external
+                       --registry-server $REGISTRY_SERVER
+                       --registry-username $REGISTRY_USERNAME
+                       --registry-password $REGISTRY_PASSWORD
+                       --target-port $TARGET_PORT
+                       --cpu $CPU
+                       --memory $MEMORY
+                       --min-replicas $MIN_REPLICAS
+                       --max-replicas $MAX_REPLICAS
